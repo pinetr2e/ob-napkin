@@ -5,6 +5,7 @@
   An Emacs library that allows Org mode to evaluate code blocks using a napkin,
   Python DSL for writing sequence diagrams.
 
+  Screenshot:
   [[./screenshot.png]]
 
 * Installation
