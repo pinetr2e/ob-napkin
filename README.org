@@ -5,7 +5,7 @@
   An Emacs library that allows Org mode to evaluate code blocks using a napkin,
   Python DSL for writing sequence diagrams.
 
-  [[./screenshot.jpg]]
+  [[./screenshot.png]]
 
 * Installation
 
@@ -16,17 +16,17 @@
 
 * Usage
 
-  Use =nakpin= src block with =:file= header argument. The filename extension
-  should be either =png= or =svg=.
+  Use =nakpin= src block with the mandatory =:file= header argument. The
+  filename extension should be either =png= or =svg=.
 
   The first line of the source code should be =def seq_diagram(c)=.
 
-  #+begin_verbatim
-  #+begin_src napkin :file hello.png
-    def seq_diagram(c):
-        user = c.object('user')
-        world = c.object('world')
-        with user:
-            world.hello()
+  #+begin_src org
+    ,#+begin_src napkin :file hello.png
+      def seq_diagram(c):
+          user = c.object('user')
+          world = c.object('world')
+          with user:
+              world.hello()
+    ,#+end_src
   #+end_src
-  #+end_verbatim
