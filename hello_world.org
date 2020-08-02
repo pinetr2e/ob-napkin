@@ -1,0 +1,15 @@
+#+STARTUP: inlineimages
+
+* Hello World Example
+
+  This is the basic example
+#+begin_src napkin :file hello_world.png
+  def seq_diagram(c):
+      user = c.object('user')
+      world = c.object('world')
+      with user:
+          world.hello("this")
+#+end_src
+
+#+RESULTS:
+[[file:hello_world.png]]
