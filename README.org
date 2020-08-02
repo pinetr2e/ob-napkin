@@ -6,6 +6,7 @@
   Python DSL for writing sequence diagrams.
 
   Screenshot:
+
   [[./screenshot.png]]
 
 * Installation
