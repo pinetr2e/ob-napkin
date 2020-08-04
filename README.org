@@ -1,8 +1,9 @@
 #+TITLE: ob-napkin
+[[https://melpa.org/#/ob-napkin][file:https://melpa.org/packages/ob-napkin-badge.svg]]
 
 * What is this?
 
-  An Emacs library that allows Org mode to evaluate code blocks using a napkin,
+  An Emacs library that allows Org mode to evaluate code blocks using [[https://github.com/pinetr2e/napkin][Napkin]],
   Python DSL for writing sequence diagrams.
 
   Screenshot:
@@ -19,7 +20,8 @@
 * Usage
 
   Use =nakpin= src block with the mandatory =:file= header argument. The
-  filename extension should be either =png= or =svg=.
+  filename extension determines the type of image and it should be either =png=
+  or =svg=.
 
   The first line of the source code should be =def seq_diagram(c)=.
 
