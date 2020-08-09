@@ -13,7 +13,7 @@
 
   =ob-napkin= depends on Python packages. It can be installed as below:
   #+begin_example
-  $ pip install napkin plantuml
+  $ pip install napkin
   #+end_example
 
 * Usage

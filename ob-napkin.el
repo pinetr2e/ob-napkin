@@ -3,7 +3,7 @@
 ;; Copyright (C) Hans Jang
 
 ;; Author: Hans Jang
-;; Keywords: literate programming, reproducible research, napkin, plantuml
+;; Keywords: tools, literate programming, reproducible research, napkin, plantuml
 ;; Homepage: https://github.com/pinetr2e/ob-napkin
 ;; Version: 0.9
 ;; Package-Requires: ((emacs "26.1"))
@@ -91,10 +91,8 @@ This function is called by `org-babel-execute-src-block'."
     (org-babel-eval command "")
     nil)) ;; signal that output has already been written to file
 
-(eval-after-load 'org
-  '(add-to-list 'org-src-lang-modes '("napkin" . python)))
 
-
+(add-to-list 'org-src-lang-modes '("napkin" . python))
 (provide 'ob-napkin)
 
 ;;; ob-napkin.el ends here
