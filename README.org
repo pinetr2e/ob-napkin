@@ -55,3 +55,10 @@
       Driver - Car : drives >
     ,#+end_src
   #+end_src
+
+** Configuration
+   =org-babel-napkin-plantuml-server-url= can specify the server URL to use. The
+   default is empty string, which means to use public PlantUML server. For example,
+  #+begin_src emacs-lisp
+    (setq org-babel-napkin-plantuml-server-url "http://localhost:8080")
+  #+end_src
