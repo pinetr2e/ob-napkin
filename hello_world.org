@@ -13,3 +13,13 @@
 
 #+RESULTS:
 [[file:hello_world.png]]
+
+
+ This is an example of using plain PlantUML text.
+#+begin_src napkin-puml :file b.png
+  class Car
+  Driver - Car : drives >
+#+end_src
+
+#+RESULTS:
+[[file:b.png]]

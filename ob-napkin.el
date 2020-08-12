@@ -57,13 +57,17 @@ The empty string means to use the public server."
   '((:results . "file") (:exports . "results"))
   "Default arguments for evaluating a napkin src block.")
 
+(defvar org-babel-default-header-args:napkin-puml
+  '((:results . "file") (:exports . "results"))
+  "Default arguments for evaluating a napkin-puml src block.")
+
 (defun org-babel-napkin-out-file (params)
   "Return output file name from PARAMS."
   (or (cdr (assq :file params))
       (error "Napkin src block requires :file header argument")))
 
 (defun org-babel-expand-body:napkin (body params)
-  "Expand BODY according to PARAMS, return the expanded body."
+  "Prpend import/decorator with file name coming from PARAMS with BODY."
   (let ((out-file (org-babel-napkin-out-file params)))
     (if (string-match (rx buffer-start (0+ blank) "def" (1+ blank) "seq_diagram" (0+ blank) "(") body)
         (concat "import napkin\n"
@@ -71,17 +75,17 @@ The empty string means to use the public server."
                 body)
       (error "Napkin src block requires def seq_diagram() as the first line of the contents"))))
 
-
 (defun org-babel-execute:napkin (body params)
   "Execute a block of napkin code with BODY and PARAMS with Babel.
-This function is called by `org-babel-execute-src-block'."
+napkin tool will be invoked to generate the image."
   (let* ((out-file (org-babel-napkin-out-file params))
          (img-type (file-name-extension out-file))
          (in-file (org-babel-temp-file "napkin-" ".py"))
          (expanded-body (org-babel-expand-body:napkin body params))
          (server-url org-babel-napkin-plantuml-server-url)
+         (tool-path org-babel-napkin-command)
          (command (format "%s %s -o %s -f %s %s"
-                          org-babel-napkin-command
+                          tool-path
                           (org-babel-process-file-name in-file)
                           (file-name-directory (org-babel-process-file-name out-file))
                           (concat "plantuml_" img-type)
@@ -92,7 +96,35 @@ This function is called by `org-babel-execute-src-block'."
     nil)) ;; signal that output has already been written to file
 
 
+(defun org-babel-expand-body:napkin-puml (body params)
+  "Wrap BODY if it does not include @startuml. PARAMS are unused."
+  (if (string-match (rx buffer-start (0+ blank) "@startuml") body)
+      body
+    (concat "@startuml\n" body "@enduml")))
+
+(defun org-babel-execute:napkin-puml (body params)
+  "Execute a block of plantuml code with BODY and PARAMS with Babel.
+napkin_plantuml tool will be invoked to generate the image."
+  (let* ((out-file (org-babel-napkin-out-file params))
+         (in-file (org-babel-temp-file "napkin-" ".puml"))
+         (expanded-body (org-babel-expand-body:napkin-puml body params))
+         (server-url org-babel-napkin-plantuml-server-url)
+         (tool-path (concat org-babel-napkin-command "_plantuml"))
+         (command (format "% %s %s %s"
+                          tool-path
+                          (org-babel-process-file-name in-file)
+                          (org-babel-process-file-name out-file)
+                          (if (string-equal server-url "") "" (concat "--server-url " server-url)))))
+    (with-temp-file in-file (insert expanded-body))
+    (message "%s" command)
+    (org-babel-eval command "")
+    nil)) ;; signal that output has already been written to file
+
+
 (add-to-list 'org-src-lang-modes '("napkin" . python))
+(when (featurep 'plantuml-mode)
+  (add-to-list 'org-src-lang-modes '("napkin-puml" . plantuml)))
+
 (provide 'ob-napkin)
 
 ;;; ob-napkin.el ends here

@@ -10,6 +10,7 @@
 
   [[./screenshot.png]]
 
+
 * Installation
 
   =ob-napkin= depends on Python packages. It can be installed as below:
@@ -17,11 +18,18 @@
   $ pip install napkin
   #+end_example
 
+  Then, the package can be loaded as follows:
+  #+begin_src emacs-lisp
+    (with-eval-after-load 'org
+      (require 'ob-napkin))
+  #+end_src
+
+
 * Usage
 
   Use =nakpin= src block with the mandatory =:file= header argument. The
-  filename extension determines the type of image and it should be either =png=
-  or =svg=.
+  filename extension determines the type of image and it can be any format
+  supported by PlantUML. For example, it can be =png=, =svg=, or =txt=.
 
   The first line of the source code should be =def seq_diagram(c)=.
 
@@ -32,5 +40,18 @@
           world = c.object('world')
           with user:
               world.hello()
+    ,#+end_src
+  #+end_src
+
+  =napkin_puml= src block can also be used to handle any plain PlantUML text
+  block. Note that the same functionality is provided by =plantuml= src block,
+  which is available from the latest [[http://eschulte.github.io/babel-dev/DONE-integrate-plantuml-support.html][org babel package]]. However, =napkin_puml=
+  src block uses napkin tool, which relies on the fast PlantUML server instead
+  of jar file.
+
+  #+begin_src org
+    ,#+begin_src napkin_puml :file car.png
+      class Car
+      Driver - Car : drives >
     ,#+end_src
   #+end_src
