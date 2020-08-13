@@ -110,7 +110,7 @@ napkin_plantuml tool will be invoked to generate the image."
          (expanded-body (org-babel-expand-body:napkin-puml body params))
          (server-url org-babel-napkin-plantuml-server-url)
          (tool-path (concat org-babel-napkin-command "_plantuml"))
-         (command (format "% %s %s %s"
+         (command (format "%s %s %s %s"
                           tool-path
                           (org-babel-process-file-name in-file)
                           (org-babel-process-file-name out-file)
