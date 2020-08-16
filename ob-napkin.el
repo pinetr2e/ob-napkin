@@ -75,6 +75,7 @@ The empty string means to use the public server."
                 body)
       (error "Napkin src block requires def seq_diagram() as the first line of the contents"))))
 
+;;;###autoload
 (defun org-babel-execute:napkin (body params)
   "Execute a block of napkin code with BODY and PARAMS with Babel.
 napkin tool will be invoked to generate the image."
@@ -96,12 +97,13 @@ napkin tool will be invoked to generate the image."
     nil)) ;; signal that output has already been written to file
 
 
-(defun org-babel-expand-body:napkin-puml (body params)
+(defun org-babel-expand-body:napkin-puml (body _params)
   "Wrap BODY if it does not include @startuml. PARAMS are unused."
   (if (string-match (rx buffer-start (0+ blank) "@startuml") body)
       body
     (concat "@startuml\n" body "@enduml")))
 
+;;;###autoload
 (defun org-babel-execute:napkin-puml (body params)
   "Execute a block of plantuml code with BODY and PARAMS with Babel.
 napkin_plantuml tool will be invoked to generate the image."
@@ -120,6 +122,15 @@ napkin_plantuml tool will be invoked to generate the image."
     (org-babel-eval command "")
     nil)) ;; signal that output has already been written to file
 
+
+(defun ob-napkin-unload-function ()
+  "Pre-cleanup when `unload-feature' is called."
+  (setq org-src-lang-modes
+        (remove '("napkin" . python)
+                (remove '("napkin-puml" . planuml)
+                        org-src-lang-modes)))
+  ;; return nil to continue standard unloading:
+  nil)
 
 (add-to-list 'org-src-lang-modes '("napkin" . python))
 (when (featurep 'plantuml-mode)
