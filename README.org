@@ -21,8 +21,8 @@
   Then, the package can be loaded as follows:
   #+begin_src emacs-lisp
     (with-eval-after-load 'ob
-      ;; Optional
-      ;; (require 'plantuml')
+      ;; Optional for syntax highlight of napkin-puml src block.
+      ;; (require 'plantuml)
       (require 'ob-napkin))
   #+end_src
 
