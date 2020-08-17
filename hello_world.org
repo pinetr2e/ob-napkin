@@ -1,25 +1,16 @@
-#+STARTUP: inlineimages
-
 * Hello World Example
 
-  This is the basic example
+This is a simple example using =napkin= src block.
 #+begin_src napkin :file hello_world.png
-  def seq_diagram(c):
-      user = c.object('user')
-      world = c.object('world')
-      with user:
-          world.hello("this")
+def seq_diagram(c):
+    user = c.object('user')
+    world = c.object('world')
+    with user:
+        world.hello("this")
 #+end_src
 
-#+RESULTS:
-[[file:hello_world.png]]
-
-
- This is an example of using plain PlantUML text.
+This is another example of using plain PlantUML text with =napkin-puml= src block.
 #+begin_src napkin-puml :file b.png
-  class Car
-  Driver - Car : drives >
+class Car
+Driver - Car : drives >
 #+end_src
-
-#+RESULTS:
-[[file:b.png]]
