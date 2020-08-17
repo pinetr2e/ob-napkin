@@ -13,12 +13,12 @@
 
 * Installation
 
-  =ob-napkin= depends on Python packages. It can be installed as below:
+  =ob-napkin= depends on =napkin= Python package. It can be installed as below:
   #+begin_example
   $ pip install napkin
   #+end_example
 
-  Then, the package can be loaded as follows:
+  Then, the Emacs lisp package can be loaded as follows:
   #+begin_src emacs-lisp
     (with-eval-after-load 'ob
       ;; Optional for syntax highlight of napkin-puml src block.
@@ -45,14 +45,14 @@
     ,#+end_src
   #+end_src
 
-  =napkin_puml= src block can also be used to handle any plain PlantUML text
-  block. Note that the same functionality is provided by =plantuml= src block,
-  which is available from the latest [[http://eschulte.github.io/babel-dev/DONE-integrate-plantuml-support.html][org babel package]]. However, =napkin_puml=
-  src block uses napkin tool, which relies on the fast PlantUML server instead
-  of jar file.
+  =napkin-puml= src block can also be use plain PlantUML text. Note that the
+  same functionality is also supported by =plantuml= src block, which is
+  available from the latest [[http://eschulte.github.io/babel-dev/DONE-integrate-plantuml-support.html][org babel package]]. However, =napkin-puml= src block
+  uses napkin tool, which relies on the fast PlantUML server instead of jar
+  file.
 
   #+begin_src org
-    ,#+begin_src napkin_puml :file car.png
+    ,#+begin_src napkin-puml :file car.png
       class Car
       Driver - Car : drives >
     ,#+end_src
